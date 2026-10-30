@@ -88,7 +88,7 @@ The physical characteristics are derived directly from the SolidWorks CAD model:
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/sokserey215/balancing_bot_rl.git
+git clone https://github.com/sok-serey/balancing_bot_rl.git
 cd balancing_bot_rl
 ```
 
@@ -232,3 +232,4 @@ Contributions, bug reports, and hardware testing feedback are welcome!
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
+
