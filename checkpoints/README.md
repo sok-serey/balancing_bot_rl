@@ -26,3 +26,4 @@ actor.eval()
 ```bash
 python scripts/evaluate.py --model checkpoints/best_model.cleanrl_model --episodes 5 --viewer
 ```
+

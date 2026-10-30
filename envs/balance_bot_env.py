@@ -260,3 +260,4 @@ class BalanceBotEnv(gym.Env):
         if self._viewer is not None:
             self._viewer.close()
             self._viewer = None
+
