@@ -1,0 +1,161 @@
+<mujoco model="bot_balance">
+
+    <compiler angle="radian"
+              meshdir="../meshes"
+              inertiafromgeom="false"
+              autolimits="true"/>
+
+    <option timestep="0.002"
+            gravity="0 0 -9.81"
+            integrator="implicitfast"/>
+
+    <default>
+        <joint damping="0.05"/>
+        <geom friction="1.0 0.005 0.0001"
+              condim="3"/>
+    </default>
+
+    <asset>
+
+        <texture name="ground_checker"
+                 type="2d"
+                 builtin="checker"
+                 width="512"
+                 height="512"
+                 rgb1="0.82 0.84 0.86"
+                 rgb2="0.62 0.66 0.70"/>
+
+        <material name="ground_material"
+                  texture="ground_checker"
+                  texrepeat="4 4"
+                  texuniform="true"/>
+
+        <!-- Meshes -->
+        <mesh name="base_mesh"
+              file="base_link.STL"/>
+
+        <mesh name="left_wheel_mesh"
+              file="left_wheel_link.STL"/>
+
+        <mesh name="right_wheel_mesh"
+              file="right_wheel_link.STL"/>
+
+    </asset>
+
+    <worldbody>
+
+        <light pos="0 0 2"
+               dir="0 0 -1"/>
+
+        <geom name="ground"
+              type="plane"
+              size="5 5 0.1"
+              material="ground_material"/>
+
+        <!-- 1. BASE FOOTPRINT (Parent ground reference body) -->
+        <body name="base_footprint" pos="0 0 0">
+
+            <freejoint name="root"/>
+
+            <!-- 2. BASE LINK (Shifted relative to base_footprint) -->
+            <body name="base_link" pos="0 0 0.06">
+
+                <inertial pos="-0.0295548 0.00109237 0.0664015"
+                          mass="0.475624"
+                          fullinertia="0.000715784 0.000562865 0.000258386 8.59226e-08 -6.02784e-07 -2.13681e-05"/>
+
+                <!-- WHITE CHASSIS -->
+                <geom name="base_visual"
+                      type="mesh"
+                      mesh="base_mesh"
+                      rgba="0.75 0.75 0.75 1"/>
+
+                <site name="imu_site"
+                      pos="-0.00061361 0.0050198 0.13902"
+                      size="0.008"/>
+
+                <!-- LEFT WHEEL (Original position preserved) -->
+                <body name="left_wheel_link" pos="0.00011115 -0.065155 -0.026398">
+
+                    <joint name="left_wheel_joint"
+                           type="hinge"
+                           axis="0 1 0"/>
+
+                    <inertial pos="-6.17784e-05 0.00505858 -0.000136913"
+                              mass="0.0949697"
+                              fullinertia="2.75683e-05 4.94809e-05 2.77216e-05 2.80578e-10 -5.9888e-07 3.31688e-08"/>
+
+                    <geom name="left_wheel_visual"
+                          type="mesh"
+                          mesh="left_wheel_mesh"
+                          rgba="0 0 0 1"/>
+                </body>
+
+                <!-- RIGHT WHEEL (Original position preserved) -->
+                <body name="right_wheel_link" pos="0.00011115 -0.065155 -0.026398">
+
+                    <joint name="right_wheel_joint"
+                           type="hinge"
+                           axis="0 1 0"/>
+
+                    <inertial pos="-0.000139591 0.00505858 -0.000118246"
+                              mass="0.0949697"
+                              fullinertia="2.75631e-05 4.94809e-05 2.77267e-05 -2.81782e-10 5.98862e-07 -3.26084e-08"/>
+
+                    <geom name="right_wheel_visual"
+                          type="mesh"
+                          mesh="right_wheel_mesh"
+                          rgba="0 0 0 1"/>
+                </body>
+
+            </body>
+
+        </body>
+
+    </worldbody>
+
+    <contact>
+        <exclude body1="base_link"
+                 body2="left_wheel_link"/>
+
+        <exclude body1="base_link"
+                 body2="right_wheel_link"/>
+    </contact>
+
+    <actuator>
+
+        <motor name="left_wheel_motor"
+               joint="left_wheel_joint"
+               ctrllimited="true"
+               ctrlrange="-2 2"/>
+
+        <motor name="right_wheel_motor"
+               joint="right_wheel_joint"
+               ctrllimited="true"
+               ctrlrange="-2 2"/>
+
+    </actuator>
+
+    <sensor>
+
+        <gyro name="imu_gyro"
+              site="imu_site"/>
+
+        <accelerometer name="imu_accel"
+                       site="imu_site"/>
+
+        <jointpos name="left_wheel_position"
+                  joint="left_wheel_joint"/>
+
+        <jointvel name="left_wheel_velocity"
+                  joint="left_wheel_joint"/>
+
+        <jointpos name="right_wheel_position"
+                  joint="right_wheel_joint"/>
+
+        <jointvel name="right_wheel_velocity"
+                  joint="right_wheel_joint"/>
+
+    </sensor>
+
+</mujoco>

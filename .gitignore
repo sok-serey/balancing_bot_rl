@@ -1,0 +1,42 @@
+# Virtual Environments
+.venv/
+venv/
+env/
+ENV/
+
+# Python Bytecode and Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+build/
+dist/
+*.egg-info/
+
+# TensorBoard & Experiment Logs
+runs/
+logs/
+wandb/
+*.tfevents.*
+MUJOCO_LOG.TXT
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints/
+*-checkpoint.ipynb
+
+# IDE & OS Files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# SolidWorks Temporary / Lock Files
+*~$*
+
+# External Course Reference & Archives (keep repo focused & lightweight)
+reference/
+*.zip
+
+# Local legacy folder (organized into assets/ and notebooks/)
+3D_CAD/

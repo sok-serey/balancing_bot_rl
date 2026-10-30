@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "balancing-bot-rl"
+version = "0.1.0"
+description = "Two-wheeled balancing robot trained with PPO reinforcement learning in MuJoCo"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [
+    { name = "sokserey215" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+dependencies = [
+    "gymnasium>=1.0.0",
+    "mujoco>=3.1.0",
+    "torch>=2.1.0",
+    "numpy>=1.24.0",
+    "tensorboard>=2.14.0",
+    "pynput>=1.7.6",
+]
+
+[project.optional-dependencies]
+dev = [
+    "jupyter",
+    "matplotlib",
+    "onnxruntime",
+]
+
+[tool.setuptools.packages.find]
+include = ["envs*", "rl*", "controllers*"]
